@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roel Damisel — PHP/Laravel Developer &amp; Graphic Designer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    :root {
+      --ink: #17130F;
+      --paper: #F5F0E5;
+      --paper-2: #ECE4D4;
+      --signal: #FF5A1F;
+      --teal: #164A44;
+      --grey: #8A8172;
+      --line: rgba(23, 19, 15, 0.16);
+    }
+
+    ::selection {
+      background: var(--signal);
+      color: var(--paper);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    .display-font {
+      font-family: 'Anton', sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 0.92;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ---------- layout rhythm ---------- */
+    .rule-top {
+      border-top: 2px solid var(--ink);
+    }
+
+    .rule-thin {
+      border-top: 1px solid var(--line);
+    }
+
+    .section-pad {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+
+    @media (max-width:767px) {
+      .section-pad {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+    }
+
+    .container-wide {
+      max-width: 1200px;
+    }
+
+    /* ---------- topbar ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(245, 240, 229, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar .mark {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+    }
+
+    .topbar .mark span {
+      color: var(--signal);
+    }
+
+    .topbar nav a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.7;
+      margin-left: 1.75rem;
+      transition: opacity .15s ease;
+    }
+
+    .topbar nav a:hover {
+      opacity: 1;
+    }
+
+    /* ---------- crop marks / proof frame ---------- */
+    .proof-frame {
+      position: relative;
+      padding: 14px;
+    }
+
+    .proof-frame::before,
+    .proof-frame::after,
+    .proof-frame .cm2,
+    .proof-frame .cm3 {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--ink);
+    }
+
+    .proof-frame::before {
+      top: 0;
+      left: 0;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .proof-frame::after {
+      top: 0;
+      right: 0;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .proof-frame .cm2 {
+      bottom: 0;
+      left: 0;
+      border-right: none;
+      border-top: none;
+    }
+
+    .proof-frame .cm3 {
+      bottom: 0;
+      right: 0;
+      border-left: none;
+      border-top: none;
+    }
+
+    .proof-frame img {
+      width: 100%;
+      display: block;
+      filter: grayscale(15%) contrast(1.03);
+    }
+
+    .proof-tag {
+      position: absolute;
+      bottom: 26px;
+      left: 26px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      padding: 4px 9px;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      padding-top: 3.5rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 9vw, 6.6rem);
+      margin: 0.2rem 0 0.6rem;
+    }
+
+    .hero h1 .accent {
+      color: var(--signal);
+    }
+
+    .hero .role {
+      font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+      color: var(--ink);
+      opacity: 0.85;
+      max-width: 34rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 2.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--grey);
+      margin-top: 1.6rem;
+    }
+
+    .meta-row div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meta-row .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--signal);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .btn-ink {
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 0;
+      padding: 0.85rem 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: 1px solid var(--ink);
+      transition: background .15s ease, color .15s ease;
+    }
+
+    .btn-ink:hover {
+      background: var(--signal);
+      border-color: var(--signal);
+      color: var(--ink);
+    }
+
+    .btn-outline-ink {
+      background: transparent;
+      color: var(--ink);
+      border-radius: 0;
+      padding: 0.85rem 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: 1px solid var(--ink);
+      transition: all .15s ease;
+    }
+
+    .btn-outline-ink:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ---------- section headers ---------- */
+    .kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--signal);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: var(--signal);
+    }
+
+    .section-title {
+      font-size: clamp(2.1rem, 4.5vw, 3.1rem);
+    }
+
+    /* ---------- about ---------- */
+    .bio p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 36rem;
+    }
+
+    .toolkit {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .toolkit li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+      border-top: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+    }
+
+    .toolkit li:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .toolkit .swatch {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      margin-right: 0.7rem;
+    }
+
+    .toolkit .n {
+      color: var(--grey);
+      font-size: 0.75rem;
+    }
+
+    /* ---------- filters ---------- */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .filter-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ---------- gallery ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width:991px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width:575px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .piece {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .piece .frame {
+      position: relative;
+      overflow: hidden;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+    }
+
+    .piece .frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .piece:hover .frame img {
+      transform: scale(1.045);
+    }
+
+    .piece .frame {
+      aspect-ratio: 4/5;
+    }
+
+    .piece .frame img {
+      object-position: top center;
+    }
+
+    .ticket {
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--ink);
+      margin-top: 0.65rem;
+    }
+
+    .ticket .title {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .ticket .spec {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--grey);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-top: 0.15rem;
+    }
+
+    /* ---------- web projects ---------- */
+    .case {
+      border-top: 1px solid var(--ink);
+      padding: 3rem 0;
+    }
+
+    .case:last-child {
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .case .num {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--signal);
+      font-size: 0.85rem;
+    }
+
+    .case h3 {
+      font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+      margin: 0.3rem 0 1rem;
+    }
+
+    .case p {
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 32rem;
+      color: var(--ink);
+      opacity: 0.85;
+    }
+
+    .stack-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.1rem 0 1.4rem;
+    }
+
+    .stack-chips span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      border: 1px solid var(--line);
+      padding: 0.25rem 0.6rem;
+      color: var(--teal);
+    }
+
+    .browser-frame {
+      border: 1px solid var(--ink);
+      background: #fff;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.55rem 0.7rem;
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper-2);
+    }
+
+    .browser-bar i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--grey);
+      display: inline-block;
+    }
+
+    .browser-shot {
+      overflow: hidden;
+      max-height: 420px;
+    }
+
+    .browser-shot img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--grey);
+      margin-top: 0.8rem;
+    }
+
+    /* ---------- contact / footer ---------- */
+    .cta-section {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .cta-section .kicker {
+      color: var(--signal);
+    }
+
+    .cta-section h2 {
+      color: var(--paper);
+    }
+
+    .cta-section .rule-thin {
+      border-top: 1px solid rgba(245, 240, 229, 0.18);
+    }
+
+    .cta-section .btn-outline-ink {
+      border-color: var(--paper);
+      color: var(--paper);
+    }
+
+    .cta-section .btn-outline-ink:hover {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .cta-section .btn-ink {
+      background: var(--signal);
+      border-color: var(--signal);
+      color: var(--ink);
+    }
+
+    .cta-section .btn-ink:hover {
+      background: var(--paper);
+      border-color: var(--paper);
+    }
+
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      border-top: 1px solid rgba(245, 240, 229, 0.18);
+      padding: 1.6rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      opacity: 0.75;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(23, 19, 15, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 2rem;
+    }
+
+    .lightbox.show {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border: 6px solid var(--paper);
+    }
+
+    .lightbox .close-lb {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.6rem;
+      color: var(--paper);
+      font-size: 1.8rem;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .lightbox .cap {
+      position: absolute;
+      bottom: 1.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--paper);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ TOPBAR ============ -->
+  <div class="topbar">
+    <div class="container-wide d-flex align-items-center justify-content-between py-3 px-3 px-md-4">
+      <a href="#top" class="mark text-decoration-none">DAMISEL<span>.</span>WORK</a>
+      <nav class="d-none d-md-flex">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Web Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header id="top" class="hero">
+    <div class="container-wide px-3 px-md-4">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-7">
+          <div class="eyebrow">PORTFOLIO</div>
+          <h1>ROEL<br>DAMISEL<span class="accent">.</span></h1>
+          <p class="role">IT Professional · PHP/Laravel Developer · Graphic Designer · IT Educator</p>
+          <div class="meta-row">
+            <div><span class="dot"></span>8+ years experience</div>
+            <div><span class="dot"></span>Philippines</div>
+          </div>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="#work" class="btn-ink">VIEW THE WORK <i class="bi bi-arrow-down-right"></i></a>
+            <a href="#contact" class="btn-outline-ink">CONTACT</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="proof-frame mx-auto" style="max-width:360px;">
+            <span class="cm2"></span><span class="cm3"></span>
+            <img src="assets/profile.jpg" alt="Roel Damisel">
+            <!-- <div class="proof-tag">PROOF — APPROVED</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section-pad rule-top">
+    <div class="container-wide px-3 px-md-4">
+      <div class="row gy-5">
+        <div class="col-lg-6">
+          <div class="kicker">01 — ABOUT</div>
+          <h2 class="section-title mb-4">About</h2>
+          <div class="bio">
+            <p>IT professional and educator with 8+ years of experience in web development, IT instruction, and graphic
+              design. Skilled in PHP, Laravel, MySQL, HTML, CSS, Bootstrap, and OOP, with experience in website
+              development, e-commerce, and technical training.</p>
+            <p class="mb-0">Outside of development, I also work in graphic design — producing tarpaulins, apparel, and
+              social media campaigns for schools and small businesses.</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="kicker">SKILLS</div>
+          <ul class="toolkit">
+            <li> <span><span class="swatch" style="background:var(--signal);"></span>PHP &amp; Laravel</span> <span
+                class="n">BACKEND</span> </li>
+            <li> <span><span class="swatch" style="background:var(--teal);"></span>MySQL / MariaDB</span> <span
+                class="n">DATABASE</span> </li>
+            <li> <span><span class="swatch" style="background:var(--signal);"></span>HTML, CSS &amp; Bootstrap</span>
+              <span class="n">FRONTEND</span>
+            </li>
+            <li> <span><span class="swatch" style="background:var(--teal);"></span>PHP OOP</span> <span
+                class="n">PROGRAMMING</span> </li>
+            <li> <span><span class="swatch" style="background:var(--signal);"></span>Git &amp; GitHub</span> <span
+                class="n">VERSION CONTROL</span> </li>
+            <li> <span><span class="swatch" style="background:var(--teal);"></span>Adobe Photoshop</span> <span
+                class="n">GRAPHIC DESIGN</span> </li>
+            <li> <span> <span class="swatch" style="background:var(--signal);"></span> WordPress <span
+                  class="n">INTERMEDIATE</span> </span> <span class="n">CMS</span> </li>
+            <li> <span><span class="swatch" style="background:var(--teal);"></span>Shopee &amp; Lazada</span> <span
+                class="n">E-COMMERCE</span> </li>
+            <li> <span><span class="swatch" style="background:var(--signal);"></span>Graphic &amp; Marketing
+                Materials</span> <span class="n">DESIGN</span> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK GALLERY ============ -->
+  <section id="work" class="section-pad rule-top">
+    <div class="container-wide px-3 px-md-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-5">
+        <div>
+          <div class="kicker">02 — CREATIVE WORK</div>
+          <h2 class="section-title mb-0">Print &amp; campaign<br>work.</h2>
+        </div>
+        <div class="filters" id="filterBar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="print">Print &amp; Posters</button>
+          <button class="filter-btn" data-filter="apparel">Apparel</button>
+          <button class="filter-btn" data-filter="digital">Digital Campaigns</button>
+          <button class="filter-btn" data-filter="brand">Branding</button>
+        </div>
+      </div>
+
+      <div class="gallery" id="gallery">
+
+        <a href="#" class="piece tall" data-cat="print" data-full="assets/work/award-math-inic.png"
+          data-cap="Vedic Math Olympiad Recognition — DMMMSU-MLUC CE LHS">
+          <div class="frame"><img src="assets/work/award-math-inic.png"
+              alt="Math-Inic Math Olympiad recognition tarpaulin"></div>
+          <div class="ticket">
+            <div class="title">Olympiad Recognition</div>
+            <div class="spec">Client: DMMMSU-MLUC · Medium: Tarpaulin</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece tall" data-cat="print" data-full="assets/work/award-cumlaude.png"
+          data-cap="Cum Laude Congratulatory Tarpaulin — DMMMSU College of IT">
+          <div class="frame"><img src="assets/work/award-cumlaude.png" alt="Cum Laude congratulatory tarpaulin"></div>
+          <div class="ticket">
+            <div class="title">Cum Laude Congratulations</div>
+            <div class="spec">Client: DMMMSU College of IT · Medium: Tarpaulin</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece tall" data-cat="print" data-full="assets/work/poster-survival.png"
+          data-cap="Mlucian Survival Challenge — Event Poster">
+          <div class="frame"><img src="assets/work/poster-survival.png" alt="Mlucian Survival Challenge poster"></div>
+          <div class="ticket">
+            <div class="title">Survival Challenge</div>
+            <div class="spec">Client: DMMMSU-MLUC · Medium: Poster</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="print" data-full="assets/work/poster-talent.png"
+          data-cap="Campus Talent Search 2017 — Flyer">
+          <div class="frame"><img src="assets/work/poster-talent.png" alt="Campus Talent Search flyer"></div>
+          <div class="ticket">
+            <div class="title">Campus Talent Search</div>
+            <div class="spec">Client: DMMMSU-MLUC · Medium: Flyer</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="print" data-full="assets/work/poster-brainquest.pngg"
+          data-cap="Brain Quest — Flyer">
+          <div class="frame"><img src="assets/work/poster-brainquest.png" alt="Brain Quest flyer"></div>
+          <div class="ticket">
+            <div class="title">Brain Quest</div>
+            <div class="spec">Client: DMMMSU-MLUC · Medium: Flyer</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="print" data-full="assets/work/poster-runforlife.png data-cap=" Run
+          for Life Color Run — Flyer">
+          <div class="frame"><img src="assets/work/poster-runforlife.png" alt="Run for Life color run flyer"></div>
+          <div class="ticket">
+            <div class="title">Run for Life</div>
+            <div class="spec">Client: DMMMSU-MLUC · Medium: Flyer</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="print" data-full="assets/work/nature.png"
+          data-cap="Nature Awareness Poster">
+          <div class="frame"><img src="assets/work/nature.png" alt="Nature awareness poster"></div>
+          <div class="ticket">
+            <div class="title">Nature Awareness</div>
+            <div class="spec">Medium: Poster</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="print" data-full="assets/work/change.png data-cap=" Be the Change
+          Poster">
+          <div class="frame"><img src="assets/work/change.png" alt="Be the change poster"></div>
+          <div class="ticket">
+            <div class="title">Be The Change</div>
+            <div class="spec">Medium: Poster</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece tall" data-cat="apparel" data-full="assets/work/tshirt-tangadan.png"
+          data-cap="Tangadan Waterfalls — Apparel Design">
+          <div class="frame"><img src="assets/work/tshirt-tangadan.png" alt="Tangadan Waterfalls t-shirt design"></div>
+          <div class="ticket">
+            <div class="title">Tangadan Waterfalls</div>
+            <div class="spec">San Gabriel, La Union · Medium: Apparel</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece tall" data-cat="apparel" data-full="assets/work/tshirt-surfing.png"
+          data-cap="Surfing Beach Capital — Apparel Design">
+          <div class="frame"><img src="assets/work/tshirt-surfing.png" alt="Surfing Beach Capital t-shirt design"></div>
+          <div class="ticket">
+            <div class="title">Surfing Beach Capital</div>
+            <div class="spec">La Union, Philippines · Medium: Apparel</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece tall" data-cat="apparel" data-full="assets/work/tshirt-bahay.png"
+          data-cap="Bahay na Bato — Apparel Design">
+          <div class="frame"><img src="assets/work/tshirt-bahay.png" alt="Bahay na Bato t-shirt design"></div>
+          <div class="ticket">
+            <div class="title">Bahay na Bato</div>
+            <div class="spec">La Union, Philippines · Medium: Apparel</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece tall" data-cat="digital" data-full="assets/work/dencys-main.png"
+          data-cap="6th Giveaway Promo — DENCY's Hardware">
+          <div class="frame"><img src="assets/work/dencys-main.png" alt="Dency's Hardware Tools promo"></div>
+          <div class="ticket">
+            <div class="title">6th Giveaway Promo</div>
+            <div class="spec">DENCY's Hardware · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/dencys-stock.png"
+          data-cap="Back In Stock — DENCY's Hardware">
+          <div class="frame"><img src="assets/work/dencys-stock.png" alt="Dency's Hardware back in stock ad"></div>
+          <div class="ticket">
+            <div class="title">Back In Stock</div>
+            <div class="spec">DENCY's Hardware · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/dencys-advisory.png"
+          data-cap="Store Advisory — DENCY's Hardware">
+          <div class="frame"><img src="assets/work/dencys-advisory.png" alt="Dency's Hardware store advisory ad"></div>
+          <div class="ticket">
+            <div class="title">Store Advisory</div>
+            <div class="spec">DENCY's Hardware · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/ingco-baguio-anniversary.png"
+          data-cap="INGCO Baguio Anniversary">
+          <div class="frame"> <img src="assets/work/ingco-baguio-anniversary.png"
+              alt="INGCO Baguio Anniversary celebration ad"> </div>
+          <div class="ticket">
+            <div class="title">INGCO Baguio Anniversary</div>
+            <div class="spec">INGCO Baguio · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/dencys-shopee-listing-1.png"
+          data-cap="Shopee Product Listing — DENCY's Hardware">
+          <div class="frame"> <img src="assets/work/dencys-shopee-listing-1.png"
+              alt="DENCY's Hardware Shopee product listing"> </div>
+          <div class="ticket">
+            <div class="title">Shopee Product Listing</div>
+            <div class="spec">DENCY's Hardware · Medium: E-Commerce Listing</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/dencys-shopee-listing-2.png"
+          data-cap="Shopee Product Listing — DENCY's Hardware">
+          <div class="frame"> <img src="assets/work/dencys-shopee-listing-2.png"
+              alt="DENCY's Hardware Shopee product listing"> </div>
+          <div class="ticket">
+            <div class="title">Shopee Product Listing</div>
+            <div class="spec">DENCY's Hardware · Medium: E-Commerce Listing</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/dencys-shopee-promo-banner.png"
+          data-cap="Shopee Promo Banner — DENCY's Hardware">
+          <div class="frame"> <img src="assets/work/dencys-shopee-promo-banner.png"
+              alt="DENCY's Hardware Shopee promo banner"> </div>
+          <div class="ticket">
+            <div class="title">Shopee Promo Banner</div>
+            <div class="spec">DENCY's Hardware · Medium: E-Commerce Banner</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/lemiel-cocoa.png"
+          data-cap="Hot Cocoa Launch — Social Ad">
+          <div class="frame"><img src="assets/work/lemiel-cocoa.png" alt="Le Miel hot cocoa ad"></div>
+          <div class="ticket">
+            <div class="title">Hot Cocoa Launch</div>
+            <div class="spec">Client: Le Miel Paris-Chocolatier · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/lemiel-choco.png"
+          data-cap="Taste the Flavor — Social Ad">
+          <div class="frame"><img src="assets/work/lemiel-choco.png" alt="Le Miel chocolate ad"></div>
+          <div class="ticket">
+            <div class="title">Taste The Flavor</div>
+            <div class="spec">Client: Le Miel Paris-Chocolatier · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/coconutpaws.png"
+          data-cap="Coconut Paws — Social Ad">
+          <div class="frame"><img src="assets/work/coconutpaws.png" alt="Coconut Paws product ad"></div>
+          <div class="ticket">
+            <div class="title">Coconut Paws</div>
+            <div class="spec">Client: Coconut Essentials · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/coconutbaby.png"
+          data-cap="Coconut Baby — Social Ad">
+          <div class="frame"><img src="assets/work/coconutbaby.png" alt="Coconut Baby product ad"></div>
+          <div class="ticket">
+            <div class="title">Coconut Baby</div>
+            <div class="spec">Client: Coconut Essentials · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="digital" data-full="assets/work/coconut-essentials.png"
+          data-cap="Coconut Essentials — Social Ad">
+          <div class="frame"> <img src="assets/work/coconut-essentials.png" alt="Coconut Essentials social ad"> </div>
+          <div class="ticket">
+            <div class="title">Coconut Essentials</div>
+            <div class="spec">Client: Coconut Essentials · Medium: Social Ad</div>
+          </div>
+        </a>
+
+        <a href="#" class="piece square" data-cat="brand" data-full="assets/work/bordieman-power-tools-logo.png"
+          data-cap="Bordieman Power Tools — Brand Logo">
+          <div class="frame"> <img src="assets/work/bordieman-power-tools-logo.png"
+              alt="Bordieman Power Tools brand logo"> </div>
+          <div class="ticket">
+            <div class="title">Bordieman Power Tools</div>
+            <div class="spec">Brand Identity · Medium: Logo Design</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEB PROJECTS ============ -->
+  <section id="projects" class="section-pad rule-top">
+    <div class="container-wide px-3 px-md-4">
+      <div class="kicker">03 — WEB PROJECTS</div>
+      <h2 class="section-title mb-2">Personal Projects</h2>
+
+      <div class="case">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="browser-frame">
+              <div class="browser-bar"><i></i><i></i><i></i></div>
+              <div class="browser-shot"><img src="assets/web/coffee-shop.png" alt="Coffee Shop website screenshot">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="num">PROJECT — 01</div>
+            <h3>Coffee Shop Website</h3>
+            <p>A simple, modern one-page site for a coffee shop, built with a warm brown palette and clear sections for
+              home, about, menu, gallery, and contact.</p>
+            <div class="stack-chips"><span>HTML</span><span>CSS</span></div>
+            <a href="https://rdamisel.github.io/portfolio-cafepuro/" target="_blank" rel="noopener" class="btn-ink">VIEW
+              LIVE SITE <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-6">
+            <div class="browser-frame">
+              <div class="browser-bar"><i></i><i></i><i></i></div>
+              <div class="browser-shot"><img src="assets/web/dashboard.png"
+                  alt="Schedule Management Dashboard screenshot"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="num">PROJECT — 02</div>
+            <h3>Schedule Management Dashboard</h3>
+            <p>A personal dashboard mirroring class schedule and attendance in one place — daily, weekly, and monthly
+              views, student info, attendance status, and quick Slack schedule copy.</p>
+            <div class="stack-chips"><span>PHP</span><span>Bootstrap</span><span>HTML</span><span>CSS</span></div>
+            <a href="https://rdamisel.github.io/portfolio-schedule-management/" target="_blank" rel="noopener"
+              class="btn-ink">VIEW LIVE DEMO <i class="bi bi-arrow-up-right"></i></a>
+            <div class="note">Static demo built for demonstration — actual data omitted for confidentiality.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="cta-section section-pad rule-top">
+    <div class="container-wide px-3 px-md-4">
+      <div class="row align-items-end gy-4">
+        <div class="col-lg-7">
+          <div class="kicker">04 — CONTACT</div>
+          <h2 class="section-title">Contact</h2>
+          <p class="mt-3" style="max-width:30rem; opacity:0.85;">Open to opportunities in web development and graphic
+            design. Get in touch to discuss details.</p>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex flex-column gap-3">
+            <a href="https://rdamisel.github.io/portfolio-cafepuro/" target="_blank" rel="noopener"
+              class="btn-outline-ink justify-content-between">
+              <span>PROJECT — CAFÉ PURO</span><i class="bi bi-arrow-up-right"></i>
+            </a>
+            <a href="https://rdamisel.github.io/portfolio-schedule-management/" target="_blank" rel="noopener"
+              class="btn-outline-ink justify-content-between">
+              <span>PROJECT — SCHEDULE DASHBOARD</span><i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container-wide px-3 px-md-4 d-flex flex-wrap justify-content-between gap-2">
+      <span>© 2026 ROEL DAMISEL</span>
+      <span>PORTFOLIO — BUILT WITH HTML &amp; BOOTSTRAP</span>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-lb" id="closeLb">&times;</span>
+    <img id="lbImg" src="" alt="">
+    <div class="cap" id="lbCap"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Filtering
+    const filterBar = document.getElementById('filterBar');
+    const pieces = document.querySelectorAll('.piece');
+    filterBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      pieces.forEach(p => {
+        const show = f === 'all' || p.dataset.cat === f;
+        p.style.display = show ? '' : 'none';
+      });
+    });
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCap = document.getElementById('lbCap');
+    pieces.forEach(p => {
+      p.addEventListener('click', (e) => {
+        e.preventDefault();
+        lbImg.src = p.dataset.full;
+        lbCap.textContent = p.dataset.cap || '';
+        lb.classList.add('show');
+      });
+    });
+    document.getElementById('closeLb').addEventListener('click', () => lb.classList.remove('show'));
+    lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('show'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('show'); });
+  </script>
+
+</body>
+
+</html>
